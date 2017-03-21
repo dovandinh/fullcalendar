@@ -14,7 +14,9 @@ var AGENDA_STOCK_SUB_DURATIONS = [
 fcViews.agenda = {
 	'class': AgendaView,
 	defaults: {
-		allDaySlot: true,
+		allDaySlot: false,
+		hideAgendaScroller: false,
+		hideAgendaAxis: false,
 		slotDuration: '00:30:00',
 		minTime: '00:00:00',
 		maxTime: '24:00:00',

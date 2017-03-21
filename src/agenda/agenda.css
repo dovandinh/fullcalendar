@@ -25,6 +25,10 @@
 	white-space: nowrap;
 }
 
+.fc .hide-fc-axis {
+	display: none;
+}
+
 .fc-ltr .fc-axis {
 	text-align: right;
 }

@@ -30,9 +30,10 @@ var AgendaView = FC.AgendaView = View.extend({
 			this.dayGrid = this.instantiateDayGrid(); // the all-day subcomponent of this view
 		}
 
+		let overflowY = this.opt('hideAgendaScroller') ? 'hidden' : 'auto';
 		this.scroller = new Scroller({
 			overflowX: 'hidden',
-			overflowY: 'auto'
+			overflowY: overflowY
 		});
 	},
 
@@ -149,6 +150,7 @@ var AgendaView = FC.AgendaView = View.extend({
 	// Generates an HTML attribute string for setting the width of the axis, if it is known
 	axisStyleAttr: function() {
 		if (this.axisWidth !== null) {
+			console.log('aa: ' + this.axisWidth);
 			 return 'style="width:' + this.axisWidth + 'px"';
 		}
 		return '';
@@ -210,7 +212,7 @@ var AgendaView = FC.AgendaView = View.extend({
 	// Refreshes the horizontal dimensions of the view
 	updateWidth: function() {
 		// make all axis cells line up, and record the width so newly created axis cells will have it
-		this.axisWidth = matchCellWidths(this.el.find('.fc-axis'));
+		this.axisWidth = this.el.find('.hide-fc-axis').length === 0 ? matchCellWidths(this.el.find('.fc-axis')) : 0;
 	},
 
 
@@ -477,6 +479,7 @@ var agendaTimeGridMethods = {
 	renderHeadIntroHtml: function() {
 		var view = this.view;
 		var weekText;
+		var hideAxisClass = view.opt('hideAgendaAxis') ? 'hide-fc-axis' : '';
 
 		if (view.opt('weekNumbers')) {
 			weekText = this.start.format(view.opt('smallWeekFormat'));
@@ -490,7 +493,7 @@ var agendaTimeGridMethods = {
 				'</th>';
 		}
 		else {
-			return '<th class="fc-axis ' + view.widgetHeaderClass + '" ' + view.axisStyleAttr() + '></th>';
+			return '<th class="fc-axis ' + hideAxisClass + ' ' + view.widgetHeaderClass + '" ' + view.axisStyleAttr() + '></th>';
 		}
 	},
 
